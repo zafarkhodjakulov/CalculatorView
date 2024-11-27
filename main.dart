@@ -39,7 +39,6 @@ class _CalculatorHomeState extends State<CalculatorHome> {
   }
 
   String _calculate(String input) {
-    // This is a very basic calculator. For advanced parsing, you can use a library like math_expressions.
     double result = 0;
     if (input.contains('+')) {
       var parts = input.split('+');
@@ -60,45 +59,66 @@ class _CalculatorHomeState extends State<CalculatorHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffb1bcc1),
       appBar: AppBar(
         title: Text("Calculator by Roshan"),
         centerTitle: true,
+        backgroundColor: Color(0xffbed3de),
       ),
       body: Column(
         children: [
-          Expanded(
-            flex: 1,
-            child: Container(
-              alignment: Alignment.centerRight,
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                display,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
+            child: TextField(
+              readOnly: true,
+              decoration: InputDecoration(
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                filled: true, // Ichki fonni yoqish
+                fillColor: Colors.white, // Ichki fon rangi
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1),
+                ),
               ),
+              controller: TextEditingController(text: display),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.right,
             ),
           ),
+          SizedBox(height: 10), // Tugmalarni biroz pastroqqa surish uchun
           Expanded(
-            flex: 3,
-            child: GridView.count(
-              crossAxisCount: 4,
-              children: [
-                buildButton("7"),
-                buildButton("8"),
-                buildButton("9"),
-                buildButton("C"),
-                buildButton("4"),
-                buildButton("5"),
-                buildButton("6"),
-                buildButton("+"),
-                buildButton("1"),
-                buildButton("2"),
-                buildButton("3"),
-                buildButton("-"),
-                buildButton("0"),
-                buildButton("x"),
-                buildButton("%"),
-                buildButton("="),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: GridView.count(
+                crossAxisCount: 4,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                children: [
+                  buildButton("7"),
+                  buildButton("8"),
+                  buildButton("9"),
+                  buildButton("C"),
+                  buildButton("4"),
+                  buildButton("5"),
+                  buildButton("6"),
+                  buildButton("+"),
+                  buildButton("1"),
+                  buildButton("2"),
+                  buildButton("3"),
+                  buildButton("-"),
+                  buildButton("0"),
+                  buildButton("x"),
+                  buildButton("%"),
+                  buildButton("="),
+                ],
+              ),
             ),
           )
         ],
@@ -107,20 +127,17 @@ class _CalculatorHomeState extends State<CalculatorHome> {
   }
 
   Widget buildButton(String value) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          backgroundColor: Color(0xffbed3de),
-        ),
-        onPressed: () => buttonPressed(value),
-        child: Text(
-          value,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color(0xffbed3de),
+        elevation: 2,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      ),
+      onPressed: () => buttonPressed(value),
+      child: Text(
+        value,
+        style: TextStyle(
+            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
       ),
     );
   }
